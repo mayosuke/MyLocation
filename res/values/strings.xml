@@ -2,6 +2,8 @@
 
     <string name="app_name">MyLocation</string>
     <string name="hello_world">Hello world!</string>
+    <string name="menu_get_location">現在地の位置情報を取得</string>
+    <string name="menu_start_auto_logging">位置情報を一定時間おきに取得</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Items</string>
 
