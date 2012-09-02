@@ -38,11 +38,11 @@ public class MainActivity extends Activity {
         case R.id.menu_get_location:
             getCurrentLocation();
             break;
-        case R.id.menu_start_auto_logging:
-            startAutoLogging();
-            break;
-        case R.id.menu_settings:
-            break;
+//        case R.id.menu_start_auto_logging:
+//            startAutoLogging();
+//            break;
+//        case R.id.menu_settings:
+//            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -51,35 +51,10 @@ public class MainActivity extends Activity {
         Log.d(TAG, "getCurrentLocation()");
         mTextView1.setText("現在位置を取得しています・・・\n");
         final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//        final Location lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//        if (lastLocation != null) {
-//            mTextView1.append("最後に取得した位置：" + lastLocation.toString() + "\n");
-//        }
-//        final LocationListener locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                Log.d(TAG, "getCurrentLocation().locationListener.onLocationChanged():location=" + location.toString());
-//                mTextView1.append("現在位置：" + location.toString() + "\n");
-//            }
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//                Log.d(TAG, "getCurrentLocation().locationListener.onStatusChanged():provider=" + provider + ",status=" + status + ",extras=" + extras);
-//            }
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//                Log.d(TAG, "getCurrentLocation().locationListener.onProviderEnabled():provider=" + provider);
-//            }
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//                Log.d(TAG, "getCurrentLocation().locationListener.onProviderDisabled():provider=" + provider);
-//            }
-//        };
         final Intent intent = new Intent();
         intent.setAction("jp.mayosuke.android.mylocation.action.LOCATION_CHANGED");
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, pendingIntent);
-//        locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
-//        locationManager.removeUpdates(locationListener);
     }
 
     private void startAutoLogging() {
