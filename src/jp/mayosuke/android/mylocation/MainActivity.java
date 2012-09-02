@@ -69,5 +69,6 @@ public class MainActivity extends Activity {
             }
         };
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, locationListener, null);
+        locationManager.removeUpdates(locationListener);
     }
 }
