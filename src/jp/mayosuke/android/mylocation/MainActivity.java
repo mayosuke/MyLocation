@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate():savedInstanceState=" + savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTextView1 = (TextView) findViewById(R.id.textView1);
@@ -28,8 +29,21 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu()");
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume()");
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPause()");
+        super.onPause();
     }
 
     @Override
@@ -38,11 +52,6 @@ public class MainActivity extends Activity {
         case R.id.menu_get_location:
             getCurrentLocation();
             break;
-//        case R.id.menu_start_auto_logging:
-//            startAutoLogging();
-//            break;
-//        case R.id.menu_settings:
-//            break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -57,7 +66,12 @@ public class MainActivity extends Activity {
         locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER, pendingIntent);
     }
 
-    private void startAutoLogging() {
-        Log.d(TAG, "startAutoLogging()");
+    private void onLocationUpdate(final Location location) {
+        Log.d(TAG, "onLocationUpdate()");
+        if (location == null) {
+            return;
+        }
+        Log.d(TAG, "  location=" +location);
+        mTextView1.setText(location.toString());
     }
 }
