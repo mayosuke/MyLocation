@@ -13,6 +13,7 @@ public class LocationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive():intent=" + intent);
+        UiUtil.isInMainThread();
         if (intent.hasExtra(LocationManager.KEY_LOCATION_CHANGED)) {
             final Location location = intent.getParcelableExtra(LocationManager.KEY_LOCATION_CHANGED);
             Log.d(TAG, "  location=" + location);
