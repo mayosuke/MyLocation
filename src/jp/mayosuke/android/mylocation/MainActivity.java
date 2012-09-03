@@ -18,7 +18,6 @@ public class MainActivity extends Activity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView mTextView1;
 
-    private static final Uri URI = Uri.parse(LocationProvider.AUTHORITY);
     private final ContentObserver mObserver = new ContentObserver(null) {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
@@ -45,7 +44,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         Log.d(TAG, "onResume()");
 
-        getContentResolver().registerContentObserver(URI, true, mObserver);
+        getContentResolver().registerContentObserver(LocationProvider.CONTENT_URI, true, mObserver);
 
         super.onResume();
     }
