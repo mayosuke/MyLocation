@@ -2,12 +2,11 @@ package jp.mayosuke.android.mylocation;
 
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,6 +17,14 @@ public class MainActivity extends Activity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private TextView mTextView1;
+
+    private static final Uri URI = Uri.parse(LocationProvider.AUTHORITY);
+    private final ContentObserver mObserver = new ContentObserver(null) {
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            Log.d(TAG, "mObserver.onChange():selfChange=" + selfChange + ",uri=" + uri);
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,12 +44,18 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         Log.d(TAG, "onResume()");
+
+        getContentResolver().registerContentObserver(URI, true, mObserver);
+
         super.onResume();
     }
 
     @Override
     protected void onPause() {
         Log.d(TAG, "onPause()");
+
+        getContentResolver().unregisterContentObserver(mObserver);
+
         super.onPause();
     }
 

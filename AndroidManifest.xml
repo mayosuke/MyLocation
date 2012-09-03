@@ -24,12 +24,19 @@
             </intent-filter>
         </activity>
 
-        <receiver 
-            android:name=".LocationReceiver">
+        <receiver
+            android:name=".LocationReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="jp.mayosuke.android.mylocation.action.LOCATION_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name=".LocationProvider"
+            android:authorities="jp.mayosuke.android.provider.location">
+            
+        </provider>
     </application>
 
 </manifest>
