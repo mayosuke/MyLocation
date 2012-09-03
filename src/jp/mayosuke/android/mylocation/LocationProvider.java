@@ -13,9 +13,7 @@ public class LocationProvider extends ContentProvider {
     private static final String SCHEME = "content://";
     public static final Uri CONTENT_URI = Uri.parse(SCHEME + AUTHORITY + "/");
 
-    private static final String TABLE_NAME = "locations";
-
-    /**
+     /**
      * The MIME type of {@link #CONTENT_URI} providing a directory of notes.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.mayosuke.location";
@@ -25,6 +23,12 @@ public class LocationProvider extends ContentProvider {
      * note.
      */
     public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.mayosuke.location";
+
+    private static final String TABLE_NAME = "locations";
+    private static final String COLMUN_NAME_TIME = "time";
+    private static final String COLMUN_NAME_LATITUDE = "latitude";
+    private static final String COLMUN_NAME_LONGITUDE = "longitude";
+    private static final String COLMUN_NAME_ALTITUDE = "altitude";
 
     @Override
     public boolean onCreate() {
