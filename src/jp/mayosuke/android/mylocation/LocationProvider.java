@@ -3,7 +3,10 @@ package jp.mayosuke.android.mylocation;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.provider.BaseColumns;
 import android.util.Log;
 
 public class LocationProvider extends ContentProvider {
@@ -14,26 +17,49 @@ public class LocationProvider extends ContentProvider {
     public static final Uri CONTENT_URI = Uri.parse(SCHEME + AUTHORITY + "/");
 
      /**
-     * The MIME type of {@link #CONTENT_URI} providing a directory of notes.
+     * The MIME type of {@link #CONTENT_URI} providing a directory of locations.
      */
     public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.mayosuke.location";
 
     /**
-     * The MIME type of a {@link #CONTENT_URI} sub-directory of a single
-     * note.
+     * The MIME type of a {@link #CONTENT_URI} sub-directory of a single location.
      */
     public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.mayosuke.location";
 
+    private static final String DATABASE_NAME = "locations.db";
+    private static final int DATABASE_VERSION = 1;
+
     private static final String TABLE_NAME = "locations";
-    private static final String COLMUN_NAME_TIME = "time";
-    private static final String COLMUN_NAME_LATITUDE = "latitude";
-    private static final String COLMUN_NAME_LONGITUDE = "longitude";
-    private static final String COLMUN_NAME_ALTITUDE = "altitude";
+
+    public static final class Location implements BaseColumns {
+        public static final String TIME = "time";
+        public static final String LATITUDE = "latitude";
+        public static final String LONGITUDE = "longitude";
+        public static final String ALTITUDE = "altitude";
+        
+        private Location() {}
+    }
+
+    private SQLiteOpenHelper mDbHelper;
 
     @Override
     public boolean onCreate() {
         Log.d(TAG, "onCreate()");
         UiUtil.isInMainThread();
+
+        mDbHelper = new SQLiteOpenHelper(getContext(), DATABASE_NAME, null, DATABASE_VERSION) {
+            @Override
+            public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+            @Override
+            public void onCreate(SQLiteDatabase db) {
+                // TODO Auto-generated method stub
+                
+            }
+        };
         // TODO Auto-generated method stub
         return false;
     }
